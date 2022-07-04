@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text;
 using cliLearningManagment.Entities;
+using cliLearningManagment.Repositories;
+using cliLearningManagment.Repositories.Exceptions;
 
 class Program
 {
@@ -28,14 +30,6 @@ class Program
         Console.Clear();
         Admin admin = new Admin();
 
-        // check if file exists.
-        if (!File.Exists("Admins.txt"))
-        {
-            FileStream fileStream = File.Create(@"Admins.txt");
-            fileStream.Write(new UTF8Encoding(true).GetBytes("ali|13811381my"));
-            fileStream.Close();
-        }
-
         Console.Write("Enter UserName: ");
         string name = Console.ReadLine() ?? "";
         Console.Write("Enter password: ");
@@ -57,6 +51,40 @@ class Program
             Console.WriteLine("\t 4) add Course To Student.");
             Console.Write("Please Enter Command: ");
             short command = short.Parse(Console.In.ReadLine() ?? "1");
+
+            if (command == 1)
+            {
+                CreateTeacher();
+            }
+        }
+    }
+
+
+    static void CreateTeacher()
+    {
+        Console.Clear();
+        Console.WriteLine("Creating A Teacher... ");
+
+        Console.Write("Enter Teacher Name: ");
+        string teacherName = Console.In.ReadLine() ?? "";
+
+        Console.Write("Enter Teacher Password: ");
+        string teacherPassword = Console.In.ReadLine() ?? "";
+
+        try
+        {
+            Teacher t = TeacherRepository.Instance.AddTeacher(new Teacher(teacherName, teacherPassword));
+            Console.WriteLine("Teacher Created.");
+            Console.WriteLine($"Teacher Id: {t.Id}");
+            Console.ReadKey();
+            return;
+        }
+        catch (DuplicateException)
+        {
+            Console.Clear();
+            Console.WriteLine("Teacher Exists.");
+            Console.ReadKey();
+            return;
         }
     }
 }

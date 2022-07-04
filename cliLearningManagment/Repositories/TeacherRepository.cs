@@ -5,9 +5,9 @@ namespace cliLearningManagment.Repositories;
 
 public class TeacherRepository
 {
-    private TeacherRepository? _instance = null;
+    private static TeacherRepository? _instance = null;
 
-    public TeacherRepository Instance => _instance ??= new TeacherRepository();
+    public static TeacherRepository Instance => _instance ??= new TeacherRepository();
 
     private TeacherRepository()
     {
@@ -28,7 +28,7 @@ public class TeacherRepository
             }
         }
 
-        return default;
+        return null;
     }
 
     public Teacher? FindById(string id)
@@ -48,7 +48,7 @@ public class TeacherRepository
     public Teacher AddTeacher(Teacher teacher)
     {
         Teacher? tempTeacher = FindByName(teacher.Name);
-        if (teacher != null)
+        if (tempTeacher != null)
         {
             throw new DuplicateException("Teacher", "name");
         }
@@ -58,7 +58,7 @@ public class TeacherRepository
 
         File.AppendAllLines(@"teachers.txt", new[]
         {
-            $"{teacher.Id}|{teacher.Name}|${teacher.Password}"
+            $"{teacher.Id}|{teacher.Name}|{teacher.Password}"
         });
         return teacher;
     }

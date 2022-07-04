@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text;
 
 namespace cliLearningManagment.Entities;
 
@@ -6,6 +7,17 @@ using System.IO;
 
 public class Admin
 {
+    public Admin()
+    {
+        // check if file exists.
+        if (!File.Exists("Admins.txt"))
+        {
+            FileStream fileStream = File.Create(@"Admins.txt");
+            fileStream.Write(new UTF8Encoding(true).GetBytes("ali|13811381my"));
+            fileStream.Close();
+        }
+    }
+
     private string password = "";
     private string name = "";
 
