@@ -9,7 +9,7 @@ class Program
         // clear Console
         Console.Write("Login As(1 Admin,2 Teacher,3 Student): ");
         short command = short.Parse(Console.In.ReadLine() ?? "1");
-        
+
         if (command == 1)
         {
             AdminRun();
@@ -27,7 +27,7 @@ class Program
         // clear Console
         Console.Clear();
         Admin admin = new Admin();
-        
+
         // check if file exists.
         if (!File.Exists("Admins.txt"))
         {
@@ -45,6 +45,18 @@ class Program
         {
             Console.WriteLine("UserName And password not match.");
             return;
+        }
+
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("Chooses: ");
+            Console.WriteLine("\t 1) create Teacher");
+            Console.WriteLine("\t 2) create Student.");
+            Console.WriteLine("\t 3) create Course.");
+            Console.WriteLine("\t 4) add Course To Student.");
+            Console.Write("Please Enter Command: ");
+            short command = short.Parse(Console.In.ReadLine() ?? "1");
         }
     }
 }
