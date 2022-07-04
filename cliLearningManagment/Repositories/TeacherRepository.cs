@@ -11,9 +11,11 @@ public class TeacherRepository
 
     private TeacherRepository()
     {
-        using (FileStream fileStream = File.Create(@"teachers.txt"))
-        {
-            fileStream.Write(new ReadOnlySpan<byte>());
+        if(!File.Exists(@"teachers.txt")){
+            using (FileStream fileStream = File.Create(@"teachers.txt"))
+            {
+                fileStream.Write(new ReadOnlySpan<byte>());
+            }
         }
     }
 
@@ -56,10 +58,7 @@ public class TeacherRepository
         string id = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString();
         teacher.Id = id;
 
-        File.AppendAllLines(@"teachers.txt", new[]
-        {
-            $"{teacher.Id}|{teacher.Name}|{teacher.Password}"
-        });
+        File.AppendAllText(@"teachers.txt", $"{teacher.Id}|{teacher.Name}|{teacher.Password}{Environment.NewLine}");
         return teacher;
     }
 }
