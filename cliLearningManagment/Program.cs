@@ -46,8 +46,8 @@ class Program
             Console.Clear();
             Console.WriteLine("Chooses: ");
             Console.WriteLine("\t 1) create Teacher");
-            Console.WriteLine("\t 2) create Student.");
-            Console.WriteLine("\t 3) create Course.");
+            Console.WriteLine("\t 2) create Course.");
+            Console.WriteLine("\t 3) create Student.");
             Console.WriteLine("\t 4) add Course To Student.");
             Console.Write("Please Enter Command: ");
             short command = short.Parse(Console.In.ReadLine() ?? "1");
@@ -55,6 +55,10 @@ class Program
             if (command == 1)
             {
                 CreateTeacher();
+            }
+            else if (command == 2)
+            {
+                CreateCourse();
             }
         }
     }
@@ -87,4 +91,36 @@ class Program
             return;
         }
     }
+
+
+    static void CreateCourse()
+    {
+        Console.Clear();
+
+        Console.WriteLine("Creating Course... ");
+
+        Console.Write("Enter Name: ");
+        string name = Console.In.ReadLine() ?? "";
+
+        Console.Write("Please Enter Teacher Name: ");
+        string teacherName = Console.In.ReadLine() ?? "";
+
+        Teacher? teacher = TeacherRepository.Instance.FindByName(teacherName);
+        if (teacher == null)
+        {
+            Console.Clear();
+            Console.WriteLine("Teacher Not Exists.");
+            Console.ReadKey();
+            return;
+        }
+
+
+        Console.Clear();
+        Course course = CourseRepository.Instance.AddCourse(new Course(name, teacher.Id ?? ""));
+        Console.WriteLine("Course Created...");
+        Console.WriteLine($"Course id = {course.Id}");
+        Console.ReadKey();
+        return;
+    }
+    
 }
