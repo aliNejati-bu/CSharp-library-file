@@ -60,6 +60,10 @@ class Program
             {
                 CreateCourse();
             }
+            else if (command == 3)
+            {
+                CreateStudent();
+            }
         }
     }
 
@@ -122,5 +126,32 @@ class Program
         Console.ReadKey();
         return;
     }
-    
+
+    static void CreateStudent()
+    {
+        Console.Clear();
+        Console.WriteLine("Creating A Student... ");
+
+        Console.Write("Enter Student Name: ");
+        string studentName = Console.In.ReadLine() ?? "";
+
+        Console.Write("Enter Student Password: ");
+        string studentPassword = Console.In.ReadLine() ?? "";
+
+        try
+        {
+            Course student = CourseRepository.Instance.AddCourse(new Course(studentName, studentPassword));
+            Console.WriteLine("Student Created.");
+            Console.WriteLine($"Student Id: {student.Id}");
+            Console.ReadKey();
+            return;
+        }
+        catch (DuplicateException)
+        {
+            Console.Clear();
+            Console.WriteLine("Student Exists.");
+            Console.ReadKey();
+            return;
+        }
+    }
 }
