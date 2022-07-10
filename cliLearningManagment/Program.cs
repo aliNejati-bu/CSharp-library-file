@@ -64,6 +64,10 @@ class Program
             {
                 CreateStudent();
             }
+            else
+            {
+                AddCoursesToStudent();
+            }
         }
     }
 
@@ -140,7 +144,7 @@ class Program
 
         try
         {
-            Course student = CourseRepository.Instance.AddCourse(new Course(studentName, studentPassword));
+            Student student = StudentRepository.Instance.AddStudent(new Student(studentName, studentPassword));
             Console.WriteLine("Student Created.");
             Console.WriteLine($"Student Id: {student.Id}");
             Console.ReadKey();
@@ -153,5 +157,55 @@ class Program
             Console.ReadKey();
             return;
         }
+    }
+
+    public static void AddCoursesToStudent()
+    {
+        Console.Clear();
+        Console.WriteLine("Add Course To Student...");
+
+
+        Console.Write("Enter Course Id: ");
+        string courseId = Console.In.ReadLine() ?? "";
+
+        Console.Write("Enter Student Id: ");
+        string studentId = Console.In.ReadLine() ?? "";
+
+        Student? student = StudentRepository.Instance.FindById(studentId);
+
+        if (student == null)
+        {
+            Console.Clear();
+            Console.WriteLine("Invalid Student Id.");
+            Console.ReadKey();
+            return;
+        }
+
+        Course? courseForCheck = CourseRepository.Instance.FindById(courseId);
+        if (courseForCheck == null)
+        {
+            Console.Clear();
+            Console.WriteLine("Invalid Course Id.");
+            Console.ReadKey();
+            return;
+        }
+
+        List<Course> courses = StudentCourseRelation.Instance.StudentCourses(studentId);
+
+        foreach (Course course in courses)
+        {
+            if (course.Id == courseId)
+            {
+                Console.Clear();
+                Console.WriteLine("Course Already for Student Exists.");
+                Console.ReadKey();
+                return;
+            }
+        }
+
+        StudentCourseRelation.Instance.CreateRelation(studentId, courseId);
+        Console.WriteLine("Student Added.");
+        Console.ReadKey();
+        return;
     }
 }
