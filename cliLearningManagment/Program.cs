@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using cliLearningManagment.Entities;
+﻿using cliLearningManagment.Entities;
 using cliLearningManagment.Repositories;
 using cliLearningManagment.Repositories.Exceptions;
 
@@ -18,9 +16,48 @@ class Program
         }
         else if (command == 2)
         {
+            TeacherRun();
         }
         else
         {
+        }
+    }
+
+
+    static void TeacherRun()
+    {
+        Console.Clear();
+
+        Console.Write("Please Enter Teacher Name: ");
+        string teacherName = Console.ReadLine() ?? "";
+
+        Console.Write("Please Enter Teacher Password: ");
+        string password = Console.ReadLine() ?? "";
+
+
+        Teacher teacher = new Teacher(teacherName, password);
+        if (!teacher.Login())
+        {
+            Console.WriteLine("Teacher name And Password is not Match.");
+            Console.ReadKey();
+            return;
+        }
+
+
+        while (true)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Chooses: ");
+            Console.WriteLine("\t 1) add Grade.");
+
+            string command = Console.ReadLine() ?? "";
+            if (command == "1")
+            {
+            }
+            else
+            {
+            }
         }
     }
 

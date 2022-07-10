@@ -42,4 +42,23 @@ public class Teacher
 
         return StudentCourseRelation.Instance.SetGrade(studentId, courseId, grade);
     }
+
+    public bool Login()
+    {
+        Teacher? inFileTeacher = TeacherRepository.Instance.FindByName(Name);
+        if (inFileTeacher == null)
+        {
+            return false;
+        }
+
+        if (Password != inFileTeacher.Password)
+        {
+            return false;
+        }
+
+        Id = inFileTeacher.Id;
+
+        return true;
+
+    }
 }
