@@ -11,7 +11,8 @@ public class TeacherRepository
 
     private TeacherRepository()
     {
-        if(!File.Exists(@"teachers.txt")){
+        if (!File.Exists(@"teachers.txt"))
+        {
             using (FileStream fileStream = File.Create(@"teachers.txt"))
             {
                 fileStream.Write(new ReadOnlySpan<byte>());
@@ -61,4 +62,5 @@ public class TeacherRepository
         File.AppendAllText(@"teachers.txt", $"{teacher.Id}|{teacher.Name}|{teacher.Password}{Environment.NewLine}");
         return teacher;
     }
+
 }

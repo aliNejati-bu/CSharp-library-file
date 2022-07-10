@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using cliLearningManagment.Entities;
 using cliLearningManagment.Repositories.Exceptions;
 
@@ -5,12 +6,11 @@ namespace cliLearningManagment.Repositories;
 
 public class StudentCourseRelation
 {
-    
     private static StudentCourseRelation? _instance = null;
 
     public static StudentCourseRelation Instance => _instance ??= new StudentCourseRelation();
-    
-    
+
+
     private StudentCourseRelation()
     {
         if (!File.Exists(@"courseStudent.txt"))
@@ -67,5 +67,14 @@ public class StudentCourseRelation
             Console.WriteLine(e);
             return false;
         }
+    }
+
+
+    public bool SetGrade(string studentId, string courseId, string grader)
+    {
+        File.WriteAllText(@"courseStudent.txt",
+            Regex.Replace(File.ReadAllText(@"courseStudent.txt"), @$"({studentId}\|{courseId})\|(\d+)",
+                $"$1|{grader}"));
+        return true;
     }
 }

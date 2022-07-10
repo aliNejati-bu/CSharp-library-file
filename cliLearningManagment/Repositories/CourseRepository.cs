@@ -51,4 +51,19 @@ public class CourseRepository
 
         return course;
     }
+
+    public List<Course> GetAdminCourses(string teacherId)
+    {
+        List<Course> courses = new List<Course>();
+        foreach (string line in File.ReadLines(@"courses.txt"))
+        {
+            string[] lineData = line.Split('|');
+            if (lineData[2] == teacherId)
+            {
+                courses.Add(FindById(lineData[0]));
+            }
+        }
+
+        return courses;
+    }
 }
