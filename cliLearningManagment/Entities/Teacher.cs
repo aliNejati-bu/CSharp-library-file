@@ -1,3 +1,5 @@
+using cliLearningManagment.Repositories;
+
 namespace cliLearningManagment.Entities;
 
 public class Teacher
@@ -11,5 +13,33 @@ public class Teacher
         Id = id;
         Name = name;
         Password = password;
+    }
+
+    public bool SetGrade(string courseId, string studentId, string grade)
+    {
+        if (Id == null)
+        {
+            return false;
+        }
+
+        List<Course> courses = CourseRepository.Instance.GetTeacherCourses(Id);
+
+        bool flag = false;
+
+        foreach (Course course in courses)
+        {
+            if (course.Id == courseId)
+            {
+                flag = true;
+                break;
+            }
+        }
+
+        if (!flag)
+        {
+            return false;
+        }
+
+        return StudentCourseRelation.Instance.SetGrade(studentId, courseId, grade);
     }
 }

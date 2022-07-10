@@ -52,7 +52,7 @@ public class CourseRepository
         return course;
     }
 
-    public List<Course> GetAdminCourses(string teacherId)
+    public List<Course> GetTeacherCourses(string teacherId)
     {
         List<Course> courses = new List<Course>();
         foreach (string line in File.ReadLines(@"courses.txt"))

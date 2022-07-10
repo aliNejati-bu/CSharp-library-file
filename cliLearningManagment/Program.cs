@@ -8,7 +8,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        StudentCourseRelation.Instance.SetGrade("1657459487296","1657035516783","100");
         // clear Console
         Console.Write("Login As(1 Admin,2 Teacher,3 Student): ");
         short command = short.Parse(Console.In.ReadLine() ?? "1");
