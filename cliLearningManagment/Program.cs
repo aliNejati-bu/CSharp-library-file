@@ -54,6 +54,29 @@ class Program
             string command = Console.ReadLine() ?? "";
             if (command == "1")
             {
+                Console.Clear();
+                Console.WriteLine("Add Grade...");
+
+                Console.Write("Enter Course Id: ");
+                string courseId = Console.ReadLine() ?? "";
+
+                Console.Write("Enter Student Id: ");
+                string studentId = Console.ReadLine() ?? "";
+
+                Console.Write("Enter Student grade in This Course: ");
+                string grade = Console.ReadLine() ?? "";
+
+
+                bool updateGradeResult = teacher.SetGrade(courseId, studentId, grade);
+
+                if (!updateGradeResult)
+                {
+                    Console.Clear();
+                    Console.WriteLine("course or Student is invalid.");
+                    Console.ReadKey();
+                    continue;
+                }
+                
             }
             else
             {

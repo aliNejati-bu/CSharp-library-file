@@ -40,6 +40,23 @@ public class Teacher
             return false;
         }
 
+
+        List<Student> students = StudentCourseRelation.Instance.CourseStudents(courseId);
+        flag = false;
+
+        foreach (Student student in students)
+        {
+            if (student.Id == studentId)
+            {
+                flag = true;
+                break;
+            }
+        }
+
+        if (!flag)
+        {
+            return false;
+        }
         return StudentCourseRelation.Instance.SetGrade(studentId, courseId, grade);
     }
 
