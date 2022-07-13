@@ -57,6 +57,7 @@ public class Teacher
         {
             return false;
         }
+
         return StudentCourseRelation.Instance.SetGrade(studentId, courseId, grade);
     }
 
@@ -76,6 +77,16 @@ public class Teacher
         Id = inFileTeacher.Id;
 
         return true;
+    }
 
+    public List<Course> GetCourses()
+    {
+        if (Id == null)
+        {
+            return new List<Course>();
+        }
+
+        List<Course> courses = CourseRepository.Instance.GetTeacherCourses(Id);
+        return courses;
     }
 }

@@ -7,6 +7,8 @@ class Program
     static void Main(string[] args)
     {
         // clear Console
+        Console.Clear();
+
         Console.Write("Login As(1 Admin,2 Teacher,3 Student): ");
         short command = short.Parse(Console.In.ReadLine() ?? "1");
 
@@ -50,6 +52,8 @@ class Program
 
             Console.WriteLine("Chooses: ");
             Console.WriteLine("\t 1) add Grade.");
+            Console.WriteLine("\t 2) courses List.");
+            
 
             string command = Console.ReadLine() ?? "";
             if (command == "1")
@@ -78,7 +82,16 @@ class Program
                 }
                 
             }
-            else
+            else if (command == "2")
+            {
+                Console.Clear();
+                List<Course> courses = teacher.GetCourses();
+                foreach (Course course in courses)
+                {
+                    Console.WriteLine($"id: {course.Id},\tname: {course.Name},");
+                }
+                Console.ReadKey();
+            }else
             {
             }
         }

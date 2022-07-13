@@ -79,18 +79,5 @@ public class StudentCourseRelation
     }
 
 
-    public List<Course> TeacherCourses(string teacherId)
-    {
-        List<Course> courses = new List<Course>();
-        foreach (string line in File.ReadLines(@"courseStudent.txt"))
-        {
-            string[] lineData = line.Split('|');
-            if (lineData[1] == teacherId)
-            {
-                courses.Add(CourseRepository.Instance.FindById(lineData[1]));
-            }
-        }
-
-        return courses;
-    }
+    
 }
