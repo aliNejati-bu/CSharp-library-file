@@ -53,7 +53,8 @@ class Program
             Console.WriteLine("Chooses: ");
             Console.WriteLine("\t 1) add Grade.");
             Console.WriteLine("\t 2) courses List.");
-            
+            Console.WriteLine("\t 0) Back.");
+
 
             string command = Console.ReadLine() ?? "";
             if (command == "1")
@@ -80,7 +81,6 @@ class Program
                     Console.ReadKey();
                     continue;
                 }
-                
             }
             else if (command == "2")
             {
@@ -90,9 +90,13 @@ class Program
                 {
                     Console.WriteLine($"id: {course.Id},\tname: {course.Name},");
                 }
+
                 Console.ReadKey();
-            }else
+            }
+            else if (command == "0")
             {
+                Main(new String[] { });
+                return;
             }
         }
     }
@@ -122,6 +126,7 @@ class Program
             Console.WriteLine("\t 2) create Course.");
             Console.WriteLine("\t 3) create Student.");
             Console.WriteLine("\t 4) add Course To Student.");
+            Console.WriteLine("\t 0) Exit.");
             Console.Write("Please Enter Command: ");
             short command = short.Parse(Console.In.ReadLine() ?? "1");
 
@@ -137,9 +142,14 @@ class Program
             {
                 CreateStudent();
             }
-            else
+            else if(command == 4)
             {
                 AddCoursesToStudent();
+            }
+            else
+            {
+                Main(new String[] { });
+                return;
             }
         }
     }
